@@ -22,18 +22,18 @@ def market_page():
         if p_item_object:
             if current_user.can_purchase(p_item_object):
                 p_item_object.buy(current_user)
-                flash(f"Congratulations! You purchased {p_item_object.name} for Rp {p_item_object.price}", category='success')
+                flash(f"Selamat! kamu membeli {p_item_object.name} dengan harga Rp {p_item_object.price}", category='success')
             else:
-                flash(f"Unfortunately, you don't have enough money to purchase {p_item_object.name}!", category='danger')
+                flash(f"Maaf, kamu tidak memiliki cukup uang untuk membeli {p_item_object.name}!", category='danger')
         #Sell Item Logic
         sold_item = request.form.get('sold_item')
         s_item_object = Item.query.filter_by(name=sold_item).first()
         if s_item_object:
             if current_user.can_sell(s_item_object):
                 s_item_object.sell(current_user)
-                flash(f"Congratulations! You sold {s_item_object.name} back to market!", category='success')
+                flash(f"Selamat! kamu menjual {s_item_object.name} ke market!", category='success')
             else:
-                flash(f"Something went wrong with selling {s_item_object.name}", category='danger')
+                flash(f"Sesuatu kesalahan terjadi disaat menjual barang {s_item_object.name}", category='danger')
 
 
         return redirect(url_for('market_page'))
