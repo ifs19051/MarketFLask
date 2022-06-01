@@ -22,7 +22,7 @@ def market_page():
         if p_item_object:
             if current_user.can_purchase(p_item_object):
                 p_item_object.buy(current_user)
-                flash(f"Congratulations! You purchased {p_item_object.name} for {p_item_object.price}$", category='success')
+                flash(f"Congratulations! You purchased {p_item_object.name} for Rp {p_item_object.price}", category='success')
             else:
                 flash(f"Unfortunately, you don't have enough money to purchase {p_item_object.name}!", category='danger')
         #Sell Item Logic
@@ -53,11 +53,11 @@ def register_page():
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
-        flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
+        flash(f"Akun Berhasil dibuat {user_to_create.username}", category='success')
         return redirect(url_for('market_page'))
     if form.errors != {}: #If there are not errors from the validations
         for err_msg in form.errors.values():
-            flash(f'There was an error with creating a user: {err_msg}', category='danger')
+            flash(f'Ada kesalahan pembuatan akun di: {err_msg}', category='danger')
 
     return render_template('register.html', form=form)
 
@@ -70,17 +70,17 @@ def login_page():
                 attempted_password=form.password.data
         ):
             login_user(attempted_user)
-            flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
+            flash(f'Success! kamu login sebagai {attempted_user.username}', category='success')
             return redirect(url_for('market_page'))
         else:
-            flash('Username and password are not match! Please try again', category='danger')
+            flash('Username dan password tidak sama, coba ulang kembali', category='danger')
 
     return render_template('login.html', form=form)
 
 @app.route('/logout')
 def logout_page():
     logout_user()
-    flash("You have been logged out!", category='info')
+    flash("Kamu telah berhasi logout", category='info')
     return redirect(url_for("home_page"))
 
 
